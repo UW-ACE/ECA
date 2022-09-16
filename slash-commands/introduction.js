@@ -125,7 +125,7 @@ const MESSAGES = [
             },
             {
                 label: "Just lurkin' 👀",
-                name: "ACE",
+                name: "Lurker",
             }
         ],
         verify: true // set this to true if the buttons are verification roles -- you can only add the role and adding it takes you to the next page
@@ -162,7 +162,7 @@ const MESSAGES = [
         roles: [
             {
                 label: "Video Games",
-                name: "Professional Gamer"
+                name: "PROFESSIONAL GAMER"
             },
             {
                 label: "Board Games",
@@ -221,6 +221,10 @@ function renderMessage(handler, interaction, messageIndex, initial) {
         const name = obj.name || obj
         const label = obj.label || name
         const roleObject = interaction.guild.roles.cache.find(role => role.name === name)
+
+	if (roleObject === undefined) {
+	    console.log(`could not find role ${name}`);
+	}
 
         return {name, label, id: roleObject.id}
     })
