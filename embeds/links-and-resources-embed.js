@@ -27,12 +27,12 @@ function makeLinksAndResourcesEmbeds() {
   aceResourcesEmbed.setTitle("❗ ACE Resources ❗");
   aceResourcesEmbed.setDescription("New to ACE? Check these out!");
   aceResourcesEmbed.addField(
-    `${ace} New Member Guide`,
-    "https://bit.ly/ACENewMemberGuide"
+    `${ace} Winter 2023 New Member Guide`,
+    "https://bit.ly/AceW23NewMemberGuide"
   );
   aceResourcesEmbed.addField(
-    "⭐ ACE Spring 2022 Drive Folder",
-    "https://www.tinyurl.com/aceMusicS22"
+    "⭐ ACE Winter 2023 Drive Folder",
+    "https://bit.ly/AceW23Music"
   );
   aceResourcesEmbed.addField(
     "📜 ACE Constitution",
@@ -46,13 +46,20 @@ function makeLinksAndResourcesEmbeds() {
     "🎼 How to use Sib",
     "https://docs.google.com/document/d/1rAklgyv7GRIfIAZR0oSk9fnO6i6_xaGDYaRQs_Vf464/edit"
   );
-  aceResourcesEmbed.addField("📆 ACE Calendar", "http://bit.ly/acecalendar");
   aceResourcesEmbed.addField(
-    "📽️ S22 BOT Slides",
-    "https://bit.ly/S22ACEBOTSlides"
+      "📆 ACE Calendar",
+      "http://bit.ly/acecalendar"
   );
   aceResourcesEmbed.addField(
-    "⛑️ (Optional) COVID-19 Disclosure Form",
+    "📽️ F22 In-Person BOT Slides",
+    "https://bit.ly/F22ACEInPersonBOT"
+  );
+  aceResourcesEmbed.addField(
+    "📽️ F22 Online BOT Slides",
+    "https://bit.ly/F22ACEOnlineBOT"
+  );
+  aceResourcesEmbed.addField(
+    "⛑ (Optional) COVID-19 Disclosure Form",
     "https://bit.ly/S22ACECovidDisclosure"
   );
   aceResourcesEmbed.addField(
@@ -70,11 +77,11 @@ function makeLinksAndResourcesEmbeds() {
   socialEmbed.setDescription(
     "Like social media? Add your social media and then check out ours!"
   );
-  socialEmbed.addField(
-    "📈 S22 Social Media Spreadsheet",
-    "https://docs.google.com/spreadsheets/d/1tCDxhO5HMlj0Wd8LvGQUjzWrhs08qDXos_U1naRKJ9E/edit?usp=sharing"
-  );
-  socialEmbed.addField("⏯️ YouTube", "https://www.youtube.com/c/UWACE");
+  // socialEmbed.addField(
+  //   "📈 S22 Social Media Spreadsheet",
+  //   "https://docs.google.com/spreadsheets/d/1tCDxhO5HMlj0Wd8LvGQUjzWrhs08qDXos_U1naRKJ9E/edit?usp=sharing"
+  // );
+  socialEmbed.addField("⏯ YouTube", "https://www.youtube.com/c/UWACE");
   socialEmbed.addField("✨ Instagram", "https://www.instagram.com/uw_ace");
   socialEmbed.addField("💃 TikTok", "https://www.tiktok.com/@uw_ace");
   socialEmbed.addField("👤 Facebook", "https://www.facebook.com/uwaterlooace");
@@ -92,7 +99,7 @@ function makeLinksAndResourcesEmbeds() {
   );
   safetyResourcesEmbed.addField(
     "💞 Ombudspeople",
-    "If you prefer talking to humans rather than bots, reach out to our ombudspeople (Catie: krystal#1000 and Ray(a): Ramer93#8480). If you're interested in being an ombudsperson, let us know here: https://bit.ly/S22ACEOmbuds"
+    "We are looking for ombudspeople this term! If you're interested in being an ombudsperson, let either one of the presidents know! (@schneids#7022 and @Twoolf#3923)"
   );
   safetyResourcesEmbed.addField(
     "🏘️ Waterloo University and Community Resources doc",
@@ -102,21 +109,26 @@ function makeLinksAndResourcesEmbeds() {
     "👷 UWACC Safety Team",
     `
   Reach out to them if you feel unsafe in ACE; expected response time is ~5 days
-  - Tiffany Wang (tiffanywang#4878)
-  - Sarah Cleghorn (Clegs#7263)
-  - Elysia Wang (elysia#3990) (UWACC Chair)
+  - Zachary Lyu (Duelex#5844)
   Safety Team Email: uwaccsafety@gmail.com
   `
   );
 
-  let currentLinks = new MessageEmbed();
-  currentLinks.setColor("#9480e6");
-  currentLinks.setTitle(":bangbang: Current Topics :bangbang:");
-  currentLinks.setDescription("Looking for something? It's probably here!");
-  currentLinks.addField("📆 ACE Calendar", "http://bit.ly/acecalendar");
-  currentLinks.addField(
+  let currentLinksEmbed = new MessageEmbed();
+  currentLinksEmbed.setColor("#9480e6");
+  currentLinksEmbed.setTitle(":bangbang: Current Topics :bangbang:");
+  currentLinksEmbed.setDescription("Looking for something? It's probably here!");
+  currentLinksEmbed.addField(
+      "📆 ACE Calendar",
+      "http://bit.ly/acecalendar"
+  );
+  currentLinksEmbed.addField(
     "🎙️ How to Record for Online ACE",
     "https://bit.ly/3NTZ8t7"
+  );
+  currentLinksEmbed.addField(
+      "📣 ACE Winter 2023 Call Sheet",
+      "https://bit.ly/AceW23CallSheet"
   );
 
   let embeds = [
@@ -124,7 +136,7 @@ function makeLinksAndResourcesEmbeds() {
     aceResourcesEmbed,
     socialEmbed,
     safetyResourcesEmbed,
-    currentLinks,
+    currentLinksEmbed,
   ];
 
   return embeds;
