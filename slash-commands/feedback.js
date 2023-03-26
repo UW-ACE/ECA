@@ -18,7 +18,7 @@ module.exports = {
         .setDescription("Pick public or private")
         .setRequired(true)
         .addChoices({ name: "private", value: "private" },
-            { name: "public", value: "private" })
+            { name: "public", value: "public" })
     )
     .addStringOption((option) =>
       option
@@ -38,31 +38,19 @@ module.exports = {
     const currDate =
       date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     const currTime =
-      date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+      date.getHours() + ":" + date.getMinutes().toString().padStart(2, '0') + ":" + date.getSeconds().toString().padStart(2, '0');
 
     // Send feedback to appropriate channel
-    if (publicity === "private") {
-      sendMessageToServer(
-        client,
-        PRIVATEFEEDBACK,
-        `${currDate} @ ${currTime}: ${message}`,
-        process.env.GUILD_ID
-      );
-      interaction.reply({
-        content: "Sent! Thanks for the anonymous feedback!",
-        ephemeral: true,
-      });
-    } else if (publicity === "public") {
-      sendMessageToServer(
-        client,
-        FEEDBACKBOOGIE,
-        `${currDate} @ ${currTime}: ${message}`,
-        process.env.GUILD_ID
-      );
-      interaction.reply({
-        content: "Sent! Thanks for the anonymous feedback!",
-        ephemeral: true,
-      });
-    }
+    const channelId = publicity === "private" ? PRIVATEFEEDBACK : FEEDBACKBOOGIE;
+    sendMessageToServer(
+      client,
+      channelId,
+      `${currDate} @ ${currTime}: ${message}`,
+      process.env.GUILD_ID
+    );
+    interaction.reply({
+      content: "Sent! Thanks for the anonymous feedback!",
+      ephemeral: true,
+    });
   },
 };
