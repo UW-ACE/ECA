@@ -29,7 +29,7 @@ let eventFiles = fs
   .filter((file) => file.endsWith(".js"));
 
 // Testing events
-if (process.env.ENV == "DEV") {
+if (process.env.ENV === "DEV") {
   const testEventFiles = fs
     .readdirSync("./testing")
     .filter((file) => file.endsWith(".event.js"));

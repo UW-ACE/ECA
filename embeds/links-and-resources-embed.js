@@ -130,6 +130,22 @@ function makeLinksAndResourcesEmbeds() {
       "📣 ACE Winter 2023 Call Sheet",
       "https://bit.ly/AceW23CallSheet"
   );
+  currentLinksEmbed.addField(
+      "⭐ ACE Winter 2023 Drive Folder",
+      "https://bit.ly/AceW23Music"
+  );
+  currentLinksEmbed.addField(
+      "😷 Online ACE \"Bellyache\" submission form",
+      "https://forms.gle/UYJW4PceYvofzqqR7"
+  );
+  currentLinksEmbed.addField(
+      "🎼 W2023 EOT Group Song (Pompeii) music folder",
+      "https://drive.google.com/drive/u/1/folders/1INjW-3Xn9YDN6oZengm9JmD5iQa5VZmy"
+  );
+  currentLinksEmbed.addField(
+      "🎟️ W2023 UWACC EOT Concert ticket sales",
+      "https://tinyurl.com/uwacc-eot-w23"
+  );
 
   let embeds = [
     discordFriendsEmbed,
