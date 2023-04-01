@@ -20,4 +20,5 @@ Prerequisites (things to install!):
 1. Clone this branch! (Run `git clone -b update-embeds https://github.com/UW-ACE/ECA.git`)
 2. Ask Moses (Plasmatic#0001) for a `.env` file and place it in the same folder as the newly cloned repository (the folder should be called "ECA" and be in the same folder as the one you ran `git clone ...` in)
 3. Edit the content of `embeds/links-and-resources-embeds.js` to update the embeds!
-4. To apply the changes, start the bot using `npm run start` and just wait until the links and resources channel has been updated (you can then shutdown the bot with Ctrl+C *actually please do this otherwise bad things will happen*)
+4. Run `npm install` to install all of the packages that allow the bot to run :).  Don't worry if you aren't sure if it's been run already, `npm` will detect if the packages are already installed 
+5. To apply the changes, start the bot using `npm run start` and just wait until the links and resources channel has been updated (you can then shutdown the bot with Ctrl+C *actually please do this otherwise bad things will happen*)
