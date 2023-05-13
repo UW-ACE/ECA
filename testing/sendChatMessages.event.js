@@ -31,7 +31,7 @@ module.exports = {
     // editMessageById(client, BOTSTUFFS, "929475949819478118", "", true);
     // -------------------------UPDATING LINKS AND RESOURCES TEMP FIX----------------------
     // embeds.forEach((embed) => {
-    // sendEmbedToServer(client, LINKSANDRESOURCES, embed, process.env.PROD_ID);
+    //   sendEmbedToServer(client, LINKSANDRESOURCES, embed, process.env.PROD_ID);
     // });
     // ---------------------------------------User DM--------------------------------------
     // dmUser(client, process.env.BOT_OWNER, "test123");
