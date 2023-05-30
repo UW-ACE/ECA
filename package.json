@@ -2,23 +2,24 @@
   "name": "ECA",
   "version": "1.0.0",
   "description": "",
-  "main": "./index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LavanSumanan/ECA.git"
   },
   "scripts": {
-    "dev": "nodemon -e js",
-    "start": "node .",
-    "seed": "node seed.js"
+    "start": "node dist/",
+    "start:prod": "node dist/ prod",
+    "build": "tsc -p .",
+    "watch": "nodemon"
   },
   "keywords": [],
-  "author": "Lavan Sumanan",
+  "author": "Lavan Sumanan & Moses Xu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/LavanSumanan/ECA/issues"
+    "url": "https://github.com/UW-ACE/ECA/issues"
   },
-  "homepage": "https://github.com/LavanSumanan/ECA#readme",
+  "homepage": "https://github.com/UW-ACE/ECA#readme",
   "dependencies": {
     "@discordjs/builders": "^1.2.0",
     "@discordjs/rest": "^0.1.0-canary.0",
@@ -30,7 +31,10 @@
   },
   "devDependencies": {
     "eslint": "^7.32.0",
-    "jest": "^27.4.7"
+    "jest": "^27.4.7",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0"
   },
   "engines": {
     "node": "16.x"
