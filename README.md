@@ -1,3 +1,7 @@
+# DO NOT UPDATE DISCORD.JS TO V14 OR LATER THE ENTIRE BOT WILL BREAK
+
+- Moses
+
 # ECA
 
 ECA is ACE's very own discord bot! ECA can help you navigate the server, participate in events, give feedback to the club, and have an overall greater ACE experience!

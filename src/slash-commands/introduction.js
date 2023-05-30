@@ -121,7 +121,7 @@ const MESSAGES = [
         roles: [
             {
                 label: "I'm participating 😊",
-                name: "ACE W23",
+                name: "ACE S23",
             },
             {
                 label: "Just lurkin' 👀",

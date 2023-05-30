@@ -8,6 +8,6 @@ RUN npm install
 #RUN npm run build
 
 # ECA specific stuff
-RUN mkdir testing # test folder that hasn't been properly deprecated yet
+#RUN mkdir testing # test folder that hasn't been properly deprecated yet
 
 CMD ["bash", "start.sh"]
