@@ -25,14 +25,16 @@ const client = new Client({
 
 // -----------------------------------------EVENTS SETUP----------------------------------------------
 let eventFiles = fs
-  .readdirSync("./events")
+  .readdirSync("./dist/events")
   .filter((file) => file.endsWith(".js"));
 
 // Testing events
 if (process.env.ENV == "DEV") {
   const testEventFiles = fs
-    .readdirSync("./testing")
+    .readdirSync("./dist/testing")
     .filter((file) => file.endsWith(".event.js"));
+
+  // d
   eventFiles = eventFiles.concat(testEventFiles);
 }
 
@@ -53,7 +55,7 @@ for (const file of eventFiles) {
 
 // ----------------------------------------------PREFIX COMMANDS SETUP-----------------------------------------------
 const prefixCommandFiles = fs
-  .readdirSync("./prefix-commands")
+  .readdirSync("./dist/prefix-commands")
   .filter((file) => file.endsWith(".js"));
 
 client.prefixCommands = new Collection();

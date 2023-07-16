@@ -47,3 +47,5 @@ const seedBirthdays = [
   await mongoose.connection.close();
   console.log("[DB Connection close] Seed file");
 })();
+
+// TODO: delete

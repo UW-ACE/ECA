@@ -9,12 +9,12 @@ module.exports = {
   once: true,
   async execute(client) {
     let slashCommandFiles = fs
-      .readdirSync("./slash-commands")
+      .readdirSync("./dist/slash-commands")
       .filter((file) => file.endsWith(".js"));
 
-    if (process.env.ENV == "DEV") {
+    if (process.env.ENV === "DEV") {
       const testCommandFiles = fs
-        .readdirSync("./testing")
+        .readdirSync("./dist/testing")
         .filter((file) => file.endsWith(".slash.js"));
       slashCommandFiles = slashCommandFiles.concat(testCommandFiles);
     }

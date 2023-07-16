@@ -80,3 +80,6 @@ config.json
 
 # Webstorm
 .idea/
+
+# Typescript
+dist/
