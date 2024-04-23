@@ -44,10 +44,16 @@ module.exports = {
     try {
       if (!GUILD_ID) {
         await rest.put(Routes.applicationCommands(CLIENT_ID), {
+          body: [],
+        });
+        await rest.put(Routes.applicationCommands(CLIENT_ID), {
           body: slashCommands,
         });
         console.log(`Successfully registered ${slashCommands.length} application commands globally`);
       } else {
+        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+          body: [],
+        });
         await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
           body: slashCommands,
         });

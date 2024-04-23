@@ -2,5 +2,5 @@
     "verbose": true,
     "ignore": [],
     "watch": ["src/**/*"],
-    "exec": "ts-node src/index.js"
+    "exec": "npm run build && npm run start:dev"
 }

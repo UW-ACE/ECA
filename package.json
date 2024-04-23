@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node dist/",
+    "start:dev": "node dist/",
     "start:prod": "node dist/ prod",
     "build": "tsc -p .",
     "watch": "nodemon"
