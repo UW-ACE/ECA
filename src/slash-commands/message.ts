@@ -15,7 +15,7 @@ module.exports = {
         )
         .addStringOption(option =>
             option.setName("replyto")
-                .setDescription("ID of the message that ECA should reply to, if the message is meant to be sent as a reply. Both XXX and XXX-XXX formats are permitted. Optional argument")
+                .setDescription("Specify this option to turn the message into a reply, this is the message that ECA should reply to")
                 .setRequired(false)
         )
         .addBooleanOption(option =>
