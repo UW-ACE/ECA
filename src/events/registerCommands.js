@@ -1,7 +1,8 @@
 const fs = require("fs"); // file system
 const { REST } = require("@discordjs/rest"); // to access discord api
 const { Routes } = require("discord-api-types/v9"); // also to access discord api
-const { Collection } = require("discord.js"); // class from discord.js library
+const { Collection } = require("discord.js");
+const {PermissionFlagsBits} = require("discord-api-types/v10"); // class from discord.js library
 require("dotenv").config();
 
 module.exports = {
@@ -29,6 +30,12 @@ module.exports = {
       } else {
         slashCommand = require(`../slash-commands/${file}`);
       }
+
+      // TODO: replace this check with something more sane. Honestly just enforcing proper TS types here would fix the issue
+      if (slashCommand.level === "mod") {
+        slashCommand.data = slashCommand.data.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+      }
+
       slashCommands.push(slashCommand.data.toJSON());
       client.slashCommands.set(slashCommand.data.name, slashCommand);
     }
