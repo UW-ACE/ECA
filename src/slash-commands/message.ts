@@ -1,6 +1,6 @@
 import {SlashCommandBuilder} from "@discordjs/builders"
 import {EcaInteraction} from "../types";
-import {Base, BaseGuildTextChannel} from "discord.js";
+import {TextChannel} from "discord.js";
 
 // TODO: change to default exporting an object
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
         )
         .addStringOption(option =>
             option.setName("replyto")
-                .setDescription("ID of the message that ECA should reply to, if the message is meant to be sent as a reply.  Optional")
+                .setDescription("ID of the message that ECA should reply to, if the message is meant to be sent as a reply. Both XXX and XXX-XXX formats are permitted. Optional argument")
                 .setRequired(false)
         )
         .addBooleanOption(option =>
@@ -29,12 +29,20 @@ module.exports = {
         const replyPing = interaction.options.getBoolean("replyping") ?? true
 
         if (replyToMsgId === null) {
-            const channel = interaction.channel as BaseGuildTextChannel
+            const channel = interaction.channel as TextChannel
             await channel.send(message)
         } else {
-            const [chSnowflake, msgSnowflake] = replyToMsgId.split("-")
-            const channel = await interaction.guild.channels.fetch(chSnowflake) as BaseGuildTextChannel
-            const parentMessage = await channel.messages.fetch(msgSnowflake)
+            let parentMessage
+            if (replyToMsgId.includes("-")) {
+                const [chSnowflake, msgSnowflake] = replyToMsgId.split("-")
+                const channel = await interaction.guild.channels.fetch(chSnowflake) as TextChannel
+                parentMessage = await channel.messages.fetch(msgSnowflake)
+            }
+            else {
+                const channel = interaction.channel as TextChannel
+                parentMessage = await channel.messages.fetch(replyToMsgId)
+            }
+
             await parentMessage.reply({
                 content: message,
                 allowedMentions: {
