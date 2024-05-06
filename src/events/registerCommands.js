@@ -32,8 +32,12 @@ module.exports = {
       }
 
       // TODO: replace this check with something more sane. Honestly just enforcing proper TS types here would fix the issue
-      if (slashCommand.level === "mod") {
+      if (process.env.ENV === "DEV" || slashCommand.level === "mod") {
         slashCommand.data = slashCommand.data.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+      }
+
+      if (process.env.ENV === "DEV") {
+        slashCommand.data = slashCommand.data.setName(`dev_${slashCommand.data.name}`);
       }
 
       slashCommands.push(slashCommand.data.toJSON());
@@ -67,9 +71,15 @@ module.exports = {
         console.log(`Successfully registered ${slashCommands.length} application commands for development guild`);
       }
     } catch (error) {
-      if (error) console.error(JSON.stringify(error, null, 2));
+      if (error) console.error(`[ERROR] Error while registering commands:\n${JSON.stringify(error, null, 2)}`);
     }
 
-    console.log("Bot is online!");
+    console.log(`To invite this bot to your server, use the link: https://discord.com/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot+applications.commands`);
+
+    if (process.env.ENV === "DEV") {
+      console.log("[WARN] DEV Mode is active, commands will be prefixed with '_dev' and will be admin/exec only!");
+    }
+
+    console.log(`Bot is online! The start time is: ${new Date().toString()}`);
   },
 };
