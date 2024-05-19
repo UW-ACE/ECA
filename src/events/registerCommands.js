@@ -13,23 +13,11 @@ module.exports = {
       .readdirSync("./dist/slash-commands")
       .filter((file) => file.endsWith(".js"));
 
-    if (process.env.ENV === "DEV") {
-      const testCommandFiles = fs
-        .readdirSync("./dist/testing")
-        .filter((file) => file.endsWith(".slash.js"));
-      slashCommandFiles = slashCommandFiles.concat(testCommandFiles);
-    }
-
     const slashCommands = [];
     client.slashCommands = new Collection();
 
     for (const file of slashCommandFiles) {
-      let slashCommand;
-      if (file.endsWith(".slash.js")) {
-        slashCommand = require(`../testing/${file}`);
-      } else {
-        slashCommand = require(`../slash-commands/${file}`);
-      }
+      let slashCommand = require(`../slash-commands/${file}`);
 
       // TODO: replace this check with something more sane. Honestly just enforcing proper TS types here would fix the issue
       if (process.env.ENV === "DEV" || slashCommand.level === "mod") {

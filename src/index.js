@@ -1,5 +1,3 @@
-console.clear();
-
 // ----------------------------------------------------IMPORTS----------------------------------------------------
 const fs = require("fs");
 const { REST } = require("@discordjs/rest");
@@ -28,41 +26,13 @@ let eventFiles = fs
   .readdirSync("./dist/events")
   .filter((file) => file.endsWith(".js"));
 
-// Testing events
-if (process.env.ENV == "DEV") {
-  const testEventFiles = fs
-    .readdirSync("./dist/testing")
-    .filter((file) => file.endsWith(".event.js"));
-
-  // d
-  eventFiles = eventFiles.concat(testEventFiles);
-}
-
 for (const file of eventFiles) {
-  let event;
-  if (file.endsWith(".deprecated.js")) continue;
-  if (file.endsWith(".event.js")) {
-    event = require(`./testing/${file}`);
-  } else {
-    event = require(`./events/${file}`);
-  }
+  let event = require(`./events/${file}`);
   if (event.once) {
     client.once(event.name, event.execute);
   } else {
     client.on(event.name, event.execute);
   }
-}
-
-// ----------------------------------------------PREFIX COMMANDS SETUP-----------------------------------------------
-const prefixCommandFiles = fs
-  .readdirSync("./dist/prefix-commands")
-  .filter((file) => file.endsWith(".js"));
-
-client.prefixCommands = new Collection();
-
-for (const file of prefixCommandFiles) {
-  const prefixCommand = require(`./prefix-commands/${file}`);
-  client.prefixCommands.set(prefixCommand.name, prefixCommand);
 }
 
 client.on("guildMemberAdd", (member) => {
