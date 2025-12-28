@@ -1,9 +1,9 @@
-const { MessageEmbed } = require("discord.js");
-const { GENERAL } = require("../helpers/channelConstants");
-const { catLove } = require("../helpers/emojiConstants");
+import { MessageEmbed } from "discord.js";
+import { GENERAL } from "../helpers/channelConstants";
+import { catLove } from "../helpers/emojiConstants";
 
-function makeHelpAppreciateEmbed() {
-  let embed = new MessageEmbed();
+export function makeHelpAppreciateEmbed() {
+  const embed = new MessageEmbed();
 
   embed.setColor("#42b3f5");
   embed.setTitle(`${catLove} Appreciate ${catLove} Help`);
@@ -22,16 +22,9 @@ function makeHelpAppreciateEmbed() {
     "Message [Optional]",
     "Provide a specific appreciative message, or skip this and let ECA provid one!"
   );
-  embed.addField(
-    "Result",
-    `ECA will share your appreciation into <#${GENERAL}>!`
-  );
+  embed.addField("Result", `ECA will share your appreciation into <#${GENERAL}>!`);
   embed.setFooter({
     text: "For help with other commands, type /help or contact Plasmatic#0001",
   });
   return embed;
 }
-
-module.exports = {
-  makeHelpAppreciateEmbed: makeHelpAppreciateEmbed,
-};

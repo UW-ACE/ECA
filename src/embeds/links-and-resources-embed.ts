@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { ace } = require("../helpers/emojiConstants");
+import { MessageEmbed } from "discord.js";
+import { ace } from "../helpers/emojiConstants";
 
-function makeLinksAndResourcesEmbeds() {
-  let discordFriendsEmbed = new MessageEmbed();
+export function makeLinksAndResourcesEmbeds() {
+  const discordFriendsEmbed = new MessageEmbed();
   discordFriendsEmbed.setColor("#d2d26a");
   discordFriendsEmbed.setTitle("🥳 Discord Friends 🥳");
   discordFriendsEmbed.setDescription("Want more ACA? Join these servers!");
@@ -22,7 +22,7 @@ function makeLinksAndResourcesEmbeds() {
     text: "Ping or DM an exec if any link is expired!",
   });
 
-  let aceResourcesEmbed = new MessageEmbed();
+  const aceResourcesEmbed = new MessageEmbed();
   aceResourcesEmbed.setColor("#61c9ca");
   aceResourcesEmbed.setTitle("❗ ACE Resources ❗");
   aceResourcesEmbed.setDescription("New to ACE? Check these out!");
@@ -141,7 +141,3 @@ function makeLinksAndResourcesEmbeds() {
 
   return embeds;
 }
-
-module.exports = {
-  makeLinksAndResourcesEmbeds: makeLinksAndResourcesEmbeds,
-};

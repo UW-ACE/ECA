@@ -1,4 +1,4 @@
-function convertTZ(date, tzString) {
+export function convertTZ(date: Date | string, tzString: string): Date {
   return new Date(
     (typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
       timeZone: tzString,
@@ -6,16 +6,16 @@ function convertTZ(date, tzString) {
   );
 }
 
-function dateTime() {
+export function getTime(): Date {
   return convertTZ(new Date(), "Canada/Eastern");
 }
 
-function getCurrentDate() {
-  const date = dateTime();
-  return { currMonth: date.getMonth() + 1, currDay: date.getDate() };
+export interface CurrentDate {
+  currMonth: number;
+  currDay: number;
 }
 
-module.exports = {
-  getTime: dateTime,
-  getCurrentDate,
-};
+export function getCurrentDate(): CurrentDate {
+  const date = getTime();
+  return { currMonth: date.getMonth() + 1, currDay: date.getDate() };
+}

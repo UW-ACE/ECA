@@ -1,14 +1,20 @@
-const { MessageEmbed } = require("discord.js");
-const { catLove } = require("../helpers/emojiConstants");
+import { MessageEmbed, Snowflake } from "discord.js";
+import { catLove } from "../helpers/emojiConstants";
 
-function makeAppreciateEmbed(options) {
+export interface AppreciateEmbedOptions {
+  appreciator?: Snowflake,
+  appreciated?: Snowflake,
+  appreciationMessage?: string,
+}
+
+export function makeAppreciateEmbed(options: AppreciateEmbedOptions) {
   let embed = new MessageEmbed();
 
   embed.setColor("#00db80");
   embed.setTitle("AppreciACEtion!!");
   embed.setDescription("Giving shout outs to the amazing people of ACE!");
   if (options.appreciator)
-    embed.addField("Appreciator", `<@${options.appreciator.id}>`, true);
+    embed.addField("Appreciator", `<@${options.appreciator}>`, true);
   if (options.appreciated)
     embed.addField("Appreciated", `<@${options.appreciated}>`, true);
   else embed.addField("Appreciated", "ACE", true);
@@ -26,7 +32,3 @@ function makeAppreciateEmbed(options) {
   });
   return embed;
 }
-
-module.exports = {
-  makeAppreciateEmbed: makeAppreciateEmbed,
-};

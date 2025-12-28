@@ -1,10 +1,10 @@
-import { EcaInteraction, EcaSlashCommand } from "../types";
+import { asString, EcaInteraction, EcaSlashCommand } from "../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { sendMessageToServer, sendEmbedToServer } from "../helpers/message";
-import { embedHandler } from "../embeds/handler";
 import { GENERAL } from "../helpers/channelConstants";
 import { catLove } from "../helpers/emojiConstants";
 import "dotenv/config";
+import { makeAppreciateEmbed } from "../embeds/appreciate-embed";
 
 export default {
   level: "public",
@@ -31,12 +31,12 @@ export default {
     const options = interaction.options;
     const anonymous = options.get("anonymous").value;
     const appreciator = anonymous ? null : interaction.user;
-    const appreciated = options.get("member") ? options.get("member").value : "";
-    const appreciationMessage = options.get("message") ? options.get("message").value : "";
+    const appreciated = options.get("member") ? asString(options.get("member").value) : "";
+    const appreciationMessage = options.get("message") ? asString(options.get("message").value) : "";
 
-    const embedOptions = { appreciator, appreciated, appreciationMessage };
+    const embedOptions = { appreciator: appreciator?.id, appreciated, appreciationMessage };
 
-    const embed = embedHandler("appreciate", embedOptions);
+    const embed = makeAppreciateEmbed(embedOptions);
 
     if (appreciated) {
       try {

@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { GENERAL } = require("../helpers/channelConstants");
+import { MessageEmbed } from "discord.js";
+import { GENERAL } from "../helpers/channelConstants";
 
-function makeHelpBirthdayEmbed() {
-  let embed = new MessageEmbed();
+export function makeHelpBirthdayEmbed() {
+  const embed = new MessageEmbed();
 
   embed.setColor("#42b3f5");
   embed.setTitle("🎂 Birthday 🎂 Help");
@@ -20,7 +20,3 @@ function makeHelpBirthdayEmbed() {
   });
   return embed;
 }
-
-module.exports = {
-  makeHelpBirthdayEmbed: makeHelpBirthdayEmbed,
-};

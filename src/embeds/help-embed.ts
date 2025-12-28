@@ -1,7 +1,7 @@
-const { MessageEmbed } = require("discord.js");
+import { MessageEmbed } from "discord.js";
 
-function makeHelpEmbed() {
-  let embed = new MessageEmbed();
+export function makeHelpEmbed() {
+  const embed = new MessageEmbed();
 
   embed.setColor("#42b3f5");
   embed.setTitle("🤔 Help 🤔");
@@ -31,7 +31,3 @@ function makeHelpEmbed() {
   });
   return embed;
 }
-
-module.exports = {
-  makeHelpEmbed,
-};

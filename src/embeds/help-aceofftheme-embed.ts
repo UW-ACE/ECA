@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { ACEOFF } = require("../helpers/channelConstants");
+import { MessageEmbed } from "discord.js";
+import { ACEOFF } from "../helpers/channelConstants";
 
-function makeHelpAceOffThemeEmbed() {
-  let embed = new MessageEmbed();
+export function makeHelpAceOffThemeEmbed() {
+  const embed = new MessageEmbed();
 
   embed.setColor("#42b3f5");
   embed.setTitle("🎤 ACE Off Theme 🎤 Help");
@@ -27,7 +27,3 @@ function makeHelpAceOffThemeEmbed() {
   );
   return embed;
 }
-
-module.exports = {
-  makeHelpAceOffThemeEmbed: makeHelpAceOffThemeEmbed,
-};

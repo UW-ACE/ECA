@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { FEEDBACKBOOGIE } = require("../helpers/channelConstants");
+import { MessageEmbed } from "discord.js";
+import { FEEDBACKBOOGIE } from "../helpers/channelConstants";
 
-function makeHelpFeedbackEmbed() {
-  let embed = new MessageEmbed();
+export function makeHelpFeedbackEmbed() {
+  const embed = new MessageEmbed();
 
   embed.setColor("#42b3f5");
   embed.setTitle("❓ Feedback ❓ Help");
@@ -18,12 +18,6 @@ function makeHelpFeedbackEmbed() {
     "Result",
     "ECA will share your feedback into the given channel on your behalf to maintain anonymity!"
   );
-  embed.setFooter(
-    "For help with other commands, type /help or contact Plasmatic#0001"
-  );
+  embed.setFooter("For help with other commands, type /help or contact Plasmatic#0001");
   return embed;
 }
-
-module.exports = {
-  makeHelpFeedbackEmbed: makeHelpFeedbackEmbed,
-};

@@ -1,5 +1,5 @@
 import { asNumber, asString, EcaInteraction, EcaSlashCommand } from "../types";
-import months from "../helpers/monthConstants";
+import { months } from "../helpers/monthConstants";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { getBirthdayByID } from "../db/birthdays/get";
 import { addBirthday } from "../db/birthdays/add";

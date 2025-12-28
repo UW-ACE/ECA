@@ -1,4 +1,4 @@
-const months = [
+export const months: [string, string][] = [
   ["", ""],
   ["January", "31"],
   ["February", "29"],
@@ -13,5 +13,3 @@ const months = [
   ["November", "30"],
   ["December", "31"],
 ];
-
-module.exports = months;
