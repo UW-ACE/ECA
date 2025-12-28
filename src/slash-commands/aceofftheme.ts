@@ -1,12 +1,13 @@
-const { editMessageById, sendMessageToServer } = require("../helpers/message");
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const getAceOffs = require("../db/aceOff/getAceOffs");
-const updateAceOffs = require("../db/aceOff/updateAceOffs");
-const getTrackedMessageId = require("../db/trackedMessages/getTrackedMesssageId");
-const updateTrackedMessage = require("../db/trackedMessages/updateTrackedMessage");
-require("dotenv").config();
+import { EcaInteraction, EcaSlashCommand } from "../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { editMessageById, sendMessageToServer } from "../helpers/message";
+import getAceOffs from "../db/aceOff/getAceOffs";
+import updateAceOffs from "../db/aceOff/updateAceOffs";
+import getTrackedMessageId from "../db/trackedMessages/getTrackedMesssageId";
+import updateTrackedMessage from "../db/trackedMessages/updateTrackedMessage";
+import "dotenv/config";
 
-module.exports = {
+export default {
   level: "public",
   data: new SlashCommandBuilder()
     .setName("aceofftheme")
@@ -31,14 +32,13 @@ module.exports = {
         )
         .setRequired(true)
     ),
-  async execute(interaction) {
+  execute: async (interaction: EcaInteraction) => {
     const client = interaction.client;
     const theme = interaction.options.getString("theme");
     const emojis = interaction.options.getString("emojis");
     const wantsCredit = interaction.options.getBoolean("credit");
     console.log(theme, emojis, wantsCredit);
-    const intro =
-      "Got it! Your ace-off theme suggestion will look like this:\n";
+    const intro = "Got it! Your ace-off theme suggestion will look like this:\n";
     const post = wantsCredit
       ? `This week's theme is **${theme}** ${emojis} suggested by ${interaction.user}!`
       : `This week's theme is **${theme}** ${emojis}!`;
@@ -65,6 +65,9 @@ module.exports = {
         aceOffs,
         process.env.PROD_ID
       );
+      // pin may be a method on the message object
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       message.pin();
       updateTrackedMessage("aceOffThemeList", message.id);
     }
@@ -74,4 +77,4 @@ module.exports = {
       ephemeral: true,
     });
   },
-};
+} as EcaSlashCommand;

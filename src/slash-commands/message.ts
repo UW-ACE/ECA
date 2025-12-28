@@ -1,9 +1,8 @@
 import {SlashCommandBuilder} from "@discordjs/builders"
-import {EcaInteraction} from "../types";
+import {EcaInteraction, EcaSlashCommand} from "../types";
 import {TextChannel} from "discord.js";
 
-// TODO: change to default exporting an object
-module.exports = {
+export default {
     level: "mod",
     data: new SlashCommandBuilder()
         .setName("message")
@@ -56,4 +55,4 @@ module.exports = {
             content: 'Done!'
         })
     },
-}
+} as EcaSlashCommand

@@ -1,13 +1,11 @@
-const { getTime } = require("../helpers/time");
-const { sendMessageToServer } = require("../helpers/message");
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const {
-  PRIVATEFEEDBACK,
-  FEEDBACKBOOGIE,
-} = require("../helpers/channelConstants");
-require("dotenv").config();
+import { EcaInteraction, EcaSlashCommand } from "../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { getTime } from "../helpers/time";
+import { sendMessageToServer } from "../helpers/message";
+import { PRIVATEFEEDBACK, FEEDBACKBOOGIE } from "../helpers/channelConstants";
+import "dotenv/config";
 
-module.exports = {
+export default {
   level: "public",
   data: new SlashCommandBuilder()
     .setName("feedback")
@@ -17,40 +15,26 @@ module.exports = {
         .setName("publicity")
         .setDescription("Pick public or private")
         .setRequired(true)
-        .addChoices({ name: "private", value: "private" },
-            { name: "public", value: "public" })
+        .addChoices({ name: "private", value: "private" }, { name: "public", value: "public" })
     )
     .addStringOption((option) =>
-      option
-        .setName("message")
-        .setDescription("Write a feedback message")
-        .setRequired(true)
+      option.setName("message").setDescription("Write a feedback message").setRequired(true)
     ),
-  async execute(interaction) {
+  execute: async (interaction: EcaInteraction) => {
     const client = interaction.client;
-    // Get options from interaction
     const options = interaction.options;
     const publicity = options.get("publicity").value;
     const message = options.get("message").value;
 
-    // Get current date and time
     const date = getTime();
-    const currDate =
-      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-    const currTime =
-      date.getHours() + ":" + date.getMinutes().toString().padStart(2, '0') + ":" + date.getSeconds().toString().padStart(2, '0');
+    const currDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    const currTime = date.getHours() + ":" + date.getMinutes().toString().padStart(2, "0") + ":" + date.getSeconds().toString().padStart(2, "0");
 
-    // Send feedback to appropriate channel
     const channelId = publicity === "private" ? PRIVATEFEEDBACK : FEEDBACKBOOGIE;
-    sendMessageToServer(
-      client,
-      channelId,
-      `${currDate} @ ${currTime}: ${message}`,
-      process.env.GUILD_ID
-    );
+    sendMessageToServer(client, channelId, `${currDate} @ ${currTime}: ${message}`, process.env.GUILD_ID);
     interaction.reply({
       content: "Sent! Thanks for the anonymous feedback!",
       ephemeral: true,
     });
   },
-};
+} as EcaSlashCommand;

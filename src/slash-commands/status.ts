@@ -1,63 +1,37 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const statusSchema = require("../Schemas/status");
+import { asString, EcaInteraction, EcaSlashCommand } from "../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import statusSchema from "../Schemas/status";
 
-module.exports = {
+export default {
   level: "mod",
   data: new SlashCommandBuilder()
     .setName("status")
     .setDescription("Set ECA's status!")
-    .addStringOption((option) =>
-      option
-        .setName("name")
-        .setDescription("What do you want ECA to listen to?")
-        .setRequired(true)
-    )
+    .addStringOption((option) => option.setName("name").setDescription("What do you want ECA to listen to?").setRequired(true))
     .setDefaultPermission(false),
-  async execute(interaction) {
+  execute: async (interaction: EcaInteraction) => {
     const client = interaction.client;
-    // Get options from interaction
     const options = interaction.options;
 
-    if (!interaction.member.permissions.any("ADMINISTRATOR")) {
-      interaction.reply({
-        content: `Sorry! Only executives can run this command!`,
-        ephemeral: true,
-      });
-    }
+    // level = mod should take care of this
+    // if (!interaction.member.permissions.any("ADMINISTRATOR")) {
+    //   interaction.reply({ content: `Sorry! Only executives can run this command!`, ephemeral: true });
+    // }
 
-    const name = options.get("name").value;
+    const name = asString(options.get("name").value);
 
     await statusSchema.deleteMany({});
 
     try {
-      await new statusSchema({
-        name: name,
-        type: "LISTENING",
-      }).save();
+      await new statusSchema({ name: name, type: "LISTENING" }).save();
     } catch (e) {
       console.error(e);
     }
 
-    client.user.setPresence({
-      activities: [
-        {
-          name: name,
-          type: "LISTENING",
-        },
-      ],
-      status: "online",
-    });
+    client.user.setPresence({ activities: [{ name: name, type: "LISTENING" }], status: "online" });
 
-    interaction.reply({
-      content: `Got it! ECA is now listening to ${name}`,
-      ephemeral: true,
-    });
+    interaction.reply({ content: `Got it! ECA is now listening to ${name}`, ephemeral: true });
 
-    console.log(
-      "status changed by",
-      interaction.member.user.username,
-      "to",
-      name
-    );
+    console.log("status changed by", interaction.member.user.username, "to", name);
   },
-};
+} as EcaSlashCommand;

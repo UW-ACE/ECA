@@ -1,15 +1,14 @@
-const { makeHelpFeedbackEmbed } = require("../embeds/help-feedback-embed");
-const { makeHelpBirthdayEmbed } = require("../embeds/help-birthday-embed");
-const { makeHelpAppreciateEmbed } = require("../embeds/help-appreciate-embed");
-const {
-  makeHelpAceOffThemeEmbed,
-} = require("../embeds/help-aceofftheme-embed");
-const { makeHelpEmbed } = require("../embeds/help-embed");
-const { sendEmbedToServer } = require("../helpers/message");
-const { SlashCommandBuilder } = require("@discordjs/builders");
-require("dotenv").config();
+import { EcaInteraction, EcaSlashCommand } from "../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { makeHelpFeedbackEmbed } from "../embeds/help-feedback-embed";
+import { makeHelpBirthdayEmbed } from "../embeds/help-birthday-embed";
+import { makeHelpAppreciateEmbed } from "../embeds/help-appreciate-embed";
+import { makeHelpAceOffThemeEmbed } from "../embeds/help-aceofftheme-embed";
+import { makeHelpEmbed } from "../embeds/help-embed";
+import { sendEmbedToServer } from "../helpers/message";
+import "dotenv/config";
 
-module.exports = {
+export default {
   level: "public",
   data: new SlashCommandBuilder()
     .setName("help")
@@ -18,12 +17,14 @@ module.exports = {
       option
         .setName("command")
         .setDescription("Pick a command to find out more")
-        .addChoices({name: "feedback", value: "feedback"},
-            {name: "birthday", value: "birthday"},
-            {name: "appreciate", value: "appreciate"},
-            {name: "aceofftheme", value: "aceofftheme"})
+        .addChoices(
+          { name: "feedback", value: "feedback" },
+          { name: "birthday", value: "birthday" },
+          { name: "appreciate", value: "appreciate" },
+          { name: "aceofftheme", value: "aceofftheme" }
+        )
     ),
-  async execute(interaction) {
+  execute: async (interaction: EcaInteraction) => {
     const client = interaction.client;
     const options = interaction.options;
     const command = options.get("command") && options.get("command").value;
@@ -34,23 +35,19 @@ module.exports = {
     if (command) {
       switch (command) {
         case "feedback":
-          process.env.GUILD_ID != process.env.PROD_ID &&
-            console.log("feedback help");
+          process.env.GUILD_ID != process.env.PROD_ID && console.log("feedback help");
           embed = makeHelpFeedbackEmbed();
           break;
         case "birthday":
-          process.env.GUILD_ID != process.env.PROD_ID &&
-            console.log("birthday help");
+          process.env.GUILD_ID != process.env.PROD_ID && console.log("birthday help");
           embed = makeHelpBirthdayEmbed();
           break;
         case "appreciate":
-          process.env.GUILD_ID != process.env.PROD_ID &&
-            console.log("appreciate help");
+          process.env.GUILD_ID != process.env.PROD_ID && console.log("appreciate help");
           embed = makeHelpAppreciateEmbed();
           break;
         case "aceofftheme":
-          process.env.GUILD_ID != process.env.PROD_ID &&
-            console.log("aceofftheme help");
+          process.env.GUILD_ID != process.env.PROD_ID && console.log("aceofftheme help");
           embed = makeHelpAceOffThemeEmbed();
           break;
       }
@@ -65,4 +62,4 @@ module.exports = {
       ephemeral: true,
     });
   },
-};
+} as EcaSlashCommand;

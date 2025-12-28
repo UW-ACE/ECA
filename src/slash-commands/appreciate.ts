@@ -1,14 +1,12 @@
-const {
-  sendMessageToServer,
-  sendEmbedToServer,
-} = require("../helpers/message");
-const { embedHandler } = require("../embeds/handler");
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { GENERAL } = require("../helpers/channelConstants");
-const { catLove } = require("../helpers/emojiConstants");
-require("dotenv").config();
+import { EcaInteraction, EcaSlashCommand } from "../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { sendMessageToServer, sendEmbedToServer } from "../helpers/message";
+import { embedHandler } from "../embeds/handler";
+import { GENERAL } from "../helpers/channelConstants";
+import { catLove } from "../helpers/emojiConstants";
+import "dotenv/config";
 
-module.exports = {
+export default {
   level: "public",
   data: new SlashCommandBuilder()
     .setName("appreciate")
@@ -20,27 +18,21 @@ module.exports = {
         .setRequired(true)
     )
     .addUserOption((option) =>
-      option
-        .setName("member")
-        .setDescription("Pick an ACE member to appreciate!")
+      option.setName("member").setDescription("Pick an ACE member to appreciate!")
     )
     .addStringOption((option) =>
       option
         .setName("message")
         .setDescription("Write a message to show appreciation to this member!")
     ),
-  async execute(interaction) {
+  execute: async (interaction: EcaInteraction) => {
     const client = interaction.client;
     // Get options from interaction
     const options = interaction.options;
     const anonymous = options.get("anonymous").value;
     const appreciator = anonymous ? null : interaction.user;
-    const appreciated = options.get("member")
-      ? options.get("member").value
-      : "";
-    const appreciationMessage = options.get("message")
-      ? options.get("message").value
-      : "";
+    const appreciated = options.get("member") ? options.get("member").value : "";
+    const appreciationMessage = options.get("message") ? options.get("message").value : "";
 
     const embedOptions = { appreciator, appreciated, appreciationMessage };
 
@@ -48,12 +40,7 @@ module.exports = {
 
     if (appreciated) {
       try {
-        sendMessageToServer(
-          client,
-          GENERAL,
-          `<@${appreciated}>`,
-          process.env.PROD_ID
-        );
+        sendMessageToServer(client, GENERAL, `<@${appreciated}>`, process.env.PROD_ID);
       } catch (e) {
         console.error(e);
       }
@@ -65,4 +52,4 @@ module.exports = {
       ephemeral: true,
     });
   },
-};
+} as EcaSlashCommand;
