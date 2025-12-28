@@ -2,7 +2,7 @@ import { EcaInteraction, EcaSlashCommand } from "../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { getTime } from "../helpers/time";
 import { sendMessageToServer } from "../helpers/message";
-import { PRIVATEFEEDBACK, FEEDBACKBOOGIE } from "../helpers/channelConstants";
+import { CHANNEL_PRIVATEFEEDBACK, CHANNEL_FEEDBACKBOOGIE } from "../helpers/channelConstants";
 import "dotenv/config";
 
 export default {
@@ -30,7 +30,7 @@ export default {
     const currDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     const currTime = date.getHours() + ":" + date.getMinutes().toString().padStart(2, "0") + ":" + date.getSeconds().toString().padStart(2, "0");
 
-    const channelId = publicity === "private" ? PRIVATEFEEDBACK : FEEDBACKBOOGIE;
+    const channelId = publicity === "private" ? CHANNEL_PRIVATEFEEDBACK : CHANNEL_FEEDBACKBOOGIE;
     sendMessageToServer(client, channelId, `${currDate} @ ${currTime}: ${message}`, process.env.GUILD_ID);
     interaction.reply({
       content: "Sent! Thanks for the anonymous feedback!",

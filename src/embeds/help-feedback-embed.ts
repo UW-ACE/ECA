@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { FEEDBACKBOOGIE } from "../helpers/channelConstants";
+import { CHANNEL_FEEDBACKBOOGIE } from "../helpers/channelConstants";
 
 export function makeHelpFeedbackEmbed() {
   const embed = new MessageEmbed();
@@ -11,7 +11,7 @@ export function makeHelpFeedbackEmbed() {
   embed.addField("Options", "publicity, message");
   embed.addField(
     "Publicity",
-    `Pick \`public\` to share feedback into the public <#${FEEDBACKBOOGIE}> channel, or \`private\` to send feedback directly to the ACE executive team, message`
+    `Pick \`public\` to share feedback into the public <#${CHANNEL_FEEDBACKBOOGIE}> channel, or \`private\` to send feedback directly to the ACE executive team, message`
   );
   embed.addField("Message", "Type out a feedback message to be shared");
   embed.addField(

@@ -1,4 +1,4 @@
-export const months: [string, string][] = [
+export const MONTHS: [string, string][] = [
   ["", ""],
   ["January", "31"],
   ["February", "29"],

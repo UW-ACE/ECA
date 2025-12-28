@@ -1,8 +1,8 @@
 import { asString, EcaInteraction, EcaSlashCommand } from "../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { sendMessageToServer, sendEmbedToServer } from "../helpers/message";
-import { GENERAL } from "../helpers/channelConstants";
-import { catLove } from "../helpers/emojiConstants";
+import { CHANNEL_GENERAL } from "../helpers/channelConstants";
+import { EMOJI_CAT_LOVE } from "../helpers/emojiConstants";
 import "dotenv/config";
 import { makeAppreciateEmbed } from "../embeds/appreciate-embed";
 
@@ -40,15 +40,15 @@ export default {
 
     if (appreciated) {
       try {
-        sendMessageToServer(client, GENERAL, `<@${appreciated}>`, process.env.PROD_ID);
+        sendMessageToServer(client, CHANNEL_GENERAL, `<@${appreciated}>`, process.env.PROD_ID);
       } catch (e) {
         console.error(e);
       }
     }
-    sendEmbedToServer(client, GENERAL, embed, process.env.PROD_ID);
+    sendEmbedToServer(client, CHANNEL_GENERAL, embed, process.env.PROD_ID);
 
     interaction.reply({
-      content: `Sent! And thank *you* for appreciating other ACE members. I appreciate you for that! ${catLove}`,
+      content: `Sent! And thank *you* for appreciating other ACE members. I appreciate you for that! ${EMOJI_CAT_LOVE}`,
       ephemeral: true,
     });
   },

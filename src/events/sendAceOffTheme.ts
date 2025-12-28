@@ -4,7 +4,7 @@ import updateAceOffs from "../db/aceOff/updateAceOffs";
 import getTrackedMessageId from "../db/trackedMessages/getTrackedMesssageId";
 import { getTime } from "../helpers/time";
 import { sendMessageToServer, editMessageById } from "../helpers/message";
-import { EXECGENERAL, ACEOFF } from "../helpers/channelConstants";
+import { CHANNEL_EXECGENERAL, CHANNEL_ACEOFF } from "../helpers/channelConstants";
 import { EcaEvent } from "../types";
 import { Client } from "discord.js";
 
@@ -18,20 +18,20 @@ async function sendAceOffTheme(client: any, channel: string) {
 
   if (!aceOffs || aceOffs.length <= 1) {
     console.log("ACE off queue is empty!");
-    sendMessageToServer(client, EXECGENERAL, "The ace-off theme queue is empty!", process.env.PROD_ID);
+    sendMessageToServer(client, CHANNEL_EXECGENERAL, "The ace-off theme queue is empty!", process.env.PROD_ID);
     return;
   }
 
   const themeList = aceOffs.split("\n");
   const theme = themeList.shift();
-  sendMessageToServer(client, ACEOFF, theme, process.env.PROD_ID);
+  sendMessageToServer(client, CHANNEL_ACEOFF, theme, process.env.PROD_ID);
 
   aceOffs = themeList.join("\n");
   updateAceOffs(aceOffs);
 
   const themeMessageId = await getTrackedMessageId("aceOffThemeList");
   aceOffs = aceOffs || "ACE off theme queue is empty! Ask members to suggest more!";
-  editMessageById(client, EXECGENERAL, themeMessageId, aceOffs);
+  editMessageById(client, CHANNEL_EXECGENERAL, themeMessageId, aceOffs);
 }
 
 export default {

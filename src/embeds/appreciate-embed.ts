@@ -1,5 +1,5 @@
 import { MessageEmbed, Snowflake } from "discord.js";
-import { catLove } from "../helpers/emojiConstants";
+import { EMOJI_CAT_LOVE } from "../helpers/emojiConstants";
 
 export interface AppreciateEmbedOptions {
   appreciator?: Snowflake,
@@ -26,7 +26,7 @@ export function makeAppreciateEmbed(options: AppreciateEmbedOptions) {
       `Thanks for being amazing and brightening someone's day!`
     );
   }
-  embed.addField("We appreciate you!", catLove);
+  embed.addField("We appreciate you!", EMOJI_CAT_LOVE);
   embed.setFooter({
     text: "For help using ECA, type /help or contact Plasmatic#0001",
   });

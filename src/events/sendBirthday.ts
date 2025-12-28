@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { getTime, getCurrentDate } from "../helpers/time";
 import { sendMessageToServer } from "../helpers/message";
-import { GENERAL } from "../helpers/channelConstants";
+import { CHANNEL_GENERAL } from "../helpers/channelConstants";
 import { getBirthdaysByMonthDay } from "../db/birthdays/get";
 import { EcaEvent } from "../types";
 import { Client } from "discord.js";
@@ -53,11 +53,11 @@ export default {
     setTimeout(async () => {
       console.log("midnight! (set timeout)");
       // check if it's anyone's birthday
-      await sendBirthdayMessage(client, GENERAL);
+      await sendBirthdayMessage(client, CHANNEL_GENERAL);
       // wait a day, check again, repeat every day
       setInterval(async () => {
         console.log("(set interval)");
-        await sendBirthdayMessage(client, GENERAL);
+        await sendBirthdayMessage(client, CHANNEL_GENERAL);
       }, dayInMs);
     }, msToWait);
   },

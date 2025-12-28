@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { ace } from "../helpers/emojiConstants";
+import { EMOJI_ACE } from "../helpers/emojiConstants";
 
 export function makeLinksAndResourcesEmbeds() {
   const discordFriendsEmbed = new MessageEmbed();
@@ -27,7 +27,7 @@ export function makeLinksAndResourcesEmbeds() {
   aceResourcesEmbed.setTitle("❗ ACE Resources ❗");
   aceResourcesEmbed.setDescription("New to ACE? Check these out!");
   aceResourcesEmbed.addField(
-    `${ace} Winter 2023 New Member Guide`,
+    `${EMOJI_ACE} Winter 2023 New Member Guide`,
     "https://bit.ly/AceW23NewMemberGuide"
   );
   aceResourcesEmbed.addField(
