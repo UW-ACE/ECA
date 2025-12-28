@@ -1,34 +1,24 @@
-require("dotenv").config();
-
-const getAceOffs = require("../db/aceOff/getAceOffs");
-const updateAceOffs = require("../db/aceOff/updateAceOffs");
-const getTrackedMessageId = require("../db/trackedMessages/getTrackedMesssageId");
-
-const { getTime } = require("../helpers/time");
-const {
-  sendMessageToServer,
-  dmUser,
-  fetchMessageById,
-  editMessageById,
-} = require("../helpers/message");
-const { EXECGENERAL, ACEOFF } = require("../helpers/channelConstants");
+import "dotenv/config";
+import getAceOffs from "../db/aceOff/getAceOffs";
+import updateAceOffs from "../db/aceOff/updateAceOffs";
+import getTrackedMessageId from "../db/trackedMessages/getTrackedMesssageId";
+import { getTime } from "../helpers/time";
+import { sendMessageToServer, editMessageById } from "../helpers/message";
+import { EXECGENERAL, ACEOFF } from "../helpers/channelConstants";
+import { EcaEvent } from "../types";
+import { Client } from "discord.js";
 
 const dayInMs = 86400000;
 const weekInMs = 604800000;
 const noonInMs = 43200000;
 const estOffset = process.env.ENV === "DEV" ? 5 * 60 * 60 * 1000 : 0;
 
-async function sendAceOffTheme(client, channel) {
+async function sendAceOffTheme(client: any, channel: string) {
   let aceOffs = await getAceOffs();
 
   if (!aceOffs || aceOffs.length <= 1) {
     console.log("ACE off queue is empty!");
-    sendMessageToServer(
-      client,
-      EXECGENERAL,
-      "The ace-off theme queue is empty!",
-      process.env.PROD_ID
-    );
+    sendMessageToServer(client, EXECGENERAL, "The ace-off theme queue is empty!", process.env.PROD_ID);
     return;
   }
 
@@ -40,15 +30,14 @@ async function sendAceOffTheme(client, channel) {
   updateAceOffs(aceOffs);
 
   const themeMessageId = await getTrackedMessageId("aceOffThemeList");
-  aceOffs =
-    aceOffs || "ACE off theme queue is empty! Ask members to suggest more!";
+  aceOffs = aceOffs || "ACE off theme queue is empty! Ask members to suggest more!";
   editMessageById(client, EXECGENERAL, themeMessageId, aceOffs);
 }
 
-module.exports = {
-  name: "ready",
+export default {
+  type: "ready",
   once: true,
-  async execute(client) {
+  async execute(client: Client<true>) {
     if (process.env.ENV === "DEV") {
       console.log("[EVENT WARNING] sendAceOffTheme turned off in dev");
       return;
@@ -56,8 +45,7 @@ module.exports = {
 
     const date = getTime();
     const msPassed = (date.getTime() - estOffset) % dayInMs;
-    let msToWait =
-      msPassed > noonInMs ? dayInMs - msPassed + noonInMs : noonInMs - msPassed;
+    let msToWait = msPassed > noonInMs ? dayInMs - msPassed + noonInMs : noonInMs - msPassed;
     const beforeNoon = date.getHours() < 12;
     const currDay = date.getDay();
 
@@ -67,10 +55,7 @@ module.exports = {
       msToWait += (6 - currDay) * dayInMs;
     }
 
-    console.log(
-      `[ACE OFF] waiting time in ms: ${msToWait}`,
-      `[ACE OFF] waiting time in minutes: ${msToWait / 1000 / 60}`
-    );
+    console.log(`[ACE OFF] waiting time in ms: ${msToWait}`, `[ACE OFF] waiting time in minutes: ${msToWait / 1000 / 60}`);
 
     // Wait until noon the next day
     setTimeout(async () => {
@@ -84,4 +69,4 @@ module.exports = {
       }, weekInMs);
     }, msToWait);
   },
-};
+} as EcaEvent;

@@ -1,8 +1,8 @@
-import { MessageComponentInteraction, CommandInteractionOptionResolver } from 'discord.js'
+import { MessageComponentInteraction, CommandInteractionOptionResolver, Client } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 
 /**
- * Small wrapper around MessageComponentInteraction that properly exposes the options field
+ * Small wrapper around MessageComponentInteraction that properly exposes the options field for ECA slash commands
  */
 export interface EcaInteraction extends MessageComponentInteraction {
     options: CommandInteractionOptionResolver,
@@ -10,11 +10,29 @@ export interface EcaInteraction extends MessageComponentInteraction {
 
 /**
  * Export struct of each slash command
+ * 
+ * Every command export under slash-commands should bne of this type
  */
 export interface EcaSlashCommand {
     level: 'public' | 'mod', // mod = requires admin permissions
     data: SlashCommandBuilder,
     execute: (interaction: EcaInteraction) => Promise<void>,
+}
+
+/**
+ * Export struct of each event
+ * 
+ * Every event export under events should bne of this type
+ */
+export interface EcaEvent {
+    // The type of discord JS event to listen to
+    type: string,
+
+    // Whether the event should execute only once, or every time it's emitted
+    once: boolean,
+
+    // Event handler
+    execute: (client: Client<true>) => Promise<void>,
 }
 
 /**

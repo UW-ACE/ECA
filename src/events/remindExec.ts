@@ -1,11 +1,13 @@
-const { sendMessageToServer, dmUser } = require("../helpers/message");
-const yellAtExecSchema = require("../Schemas/yellatexec");
-require("dotenv").config();
+import { EcaEvent } from "../types";
+import { sendMessageToServer, dmUser } from "../helpers/message";
+import yellAtExecSchema from "../Schemas/yellatexec";
+import "dotenv/config";
+import { Client } from "discord.js";
 
-module.exports = {
-  name: "ready",
+export default {
+  type: "ready",
   once: true,
-  async execute(client) {
+  execute: async (client: Client<true>) => {
     if (process.env.ENV === "DEV") {
       console.log("[EVENT WARNING] remindExec turned off in dev");
       return;
@@ -36,4 +38,4 @@ module.exports = {
         }
     }, 86400000);
   },
-};
+} as EcaEvent;

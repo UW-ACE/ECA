@@ -6,6 +6,8 @@ import { Client, Intents, Collection } from "discord.js";
 import mongoose from "mongoose";
 import "dotenv/config";
 
+import { EcaInteraction, EcaSlashCommand } from "./types";
+
 import AceOffThemeCommand from "./slash-commands/aceofftheme";
 import AppreciateCommand from "./slash-commands/appreciate";
 import FeedbackCommand from "./slash-commands/feedback";
@@ -16,7 +18,12 @@ import SetBirthdayCommand from "./slash-commands/setBirthday";
 import StatusCommand from "./slash-commands/status";
 import StopYellingAtExecCommand from "./slash-commands/stopyellingatexec";
 import YellAtExecCommand from "./slash-commands/yellatexec";
-import { EcaInteraction, EcaSlashCommand } from "./types";
+
+import DeleteCommandEvent from "./events/deleteCommand";
+import GetStatusEvent from "./events/getStatus";
+import RemindExecEvent from "./events/remindExec";
+import SendAceOffThemeEvent from "./events/sendAceOffTheme";
+import SendBirthdayEvent from "./events/sendBirthday";
 
 // -----------------------------------------CLIENT SETUP----------------------------------------------
 
@@ -38,16 +45,19 @@ const client = new Client({
 
 // -----------------------------------------EVENTS SETUP----------------------------------------------
 
-let eventFiles = fs
-  .readdirSync("./dist/events")
-  .filter((file) => file.endsWith(".js"));
+const EVENTS_LIST = [
+  DeleteCommandEvent,
+  GetStatusEvent,
+  RemindExecEvent,
+  SendAceOffThemeEvent,
+  SendBirthdayEvent
+]
 
-for (const file of eventFiles) {
-  let event = require(`./events/${file}`);
+for (const event of EVENTS_LIST) {
   if (event.once) {
-    client.once(event.name, event.execute);
+    client.once(event.type, event.execute);
   } else {
-    client.on(event.name, event.execute);
+    client.on(event.type, event.execute);
   }
 }
 
@@ -92,8 +102,6 @@ client.once("ready", async () => {
   }).setToken(process.env.BOT_TOKEN);
 
   const slashCommandPostData = Array.from(slashCommands.values()).map(command => command.data.toJSON());
-
-  console.log(slashCommandPostData);
 
   try {
     if (!guildId) {
@@ -159,8 +167,6 @@ client.on("guildMemberAdd", (member) => {
   );
   console.log(`${member.user.username} has joined`);
 });
-
-console.log("Bot token is", process.env.BOT_TOKEN);
 
 // Login to Discord with your client's token
 client.login(process.env.BOT_TOKEN);

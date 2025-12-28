@@ -1,10 +1,12 @@
-const statusSchema = require("../Schemas/status");
-require("dotenv").config();
+import { EcaEvent } from "../types";
+import statusSchema from "../Schemas/status";
+import "dotenv/config";
+import { Client } from "discord.js";
 
-module.exports = {
-  name: "ready",
+export default {
+  type: "ready",
   once: true,
-  async execute(client) {
+  execute: async (client: Client<true>) => {
     if (process.env.ENV === "DEV") {
       console.log("[EVENT WARNING] getStatus turned off in dev");
       return;
@@ -32,4 +34,4 @@ module.exports = {
       status: "online",
     });
   },
-};
+} as EcaEvent;

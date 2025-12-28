@@ -1,15 +1,14 @@
-require("dotenv").config();
-const fs = require("fs");
+import { Client } from "discord.js";
+import { EcaEvent } from "../types";
+import "dotenv/config";
 
-module.exports = {
-  name: "ready",
+export default {
+  type: "ready",
   once: true,
-  async execute(client) {
+  execute: async (client: Client<true>) => {
     // get all commands from this guild
     if (!client.application?.owner) await client.application?.fetch();
-    const commands = await client.guilds.cache
-      .get(process.env.PROD_ID)
-      ?.commands.fetch();
+    const commands = await client.guilds.cache.get(process.env.PROD_ID)?.commands.fetch();
 
     const re = /test/;
 
@@ -25,4 +24,4 @@ module.exports = {
       });
     }
   },
-};
+} as EcaEvent;
