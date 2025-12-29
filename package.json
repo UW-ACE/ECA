@@ -10,7 +10,9 @@
   "scripts": {
     "start": "node dist/",
     "build": "tsc -p .",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\""
   },
   "keywords": [],
   "author": "Lavan Sumanan & Moses Xu",
@@ -30,8 +32,11 @@
   },
   "devDependencies": {
     "eslint": "^7.32.0",
+    "husky": "^9.1.7",
     "jest": "^27.4.7",
+    "lint-staged": "^16.2.7",
     "nodemon": "^2.0.20",
+    "prettier": "^3.7.4",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0"
   },
