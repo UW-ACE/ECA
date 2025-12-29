@@ -1,7 +1,8 @@
-const trackedmessageSchema = require("../../Schemas/trackedmessage");
+import trackedmessageSchema from "../../Schemas/trackedmessage";
+import type { Snowflake } from "discord.js";
 
-async function updateTrackedMessage(name, newid) {
-  let trackedmessageEntry;
+export default async function updateTrackedMessage(name: string, newid: Snowflake): Promise<boolean> {
+  let trackedmessageEntry: any;
 
   try {
     trackedmessageEntry = await trackedmessageSchema.findOne({ name });
@@ -27,5 +28,3 @@ async function updateTrackedMessage(name, newid) {
   }
   return true;
 }
-
-module.exports = updateTrackedMessage;

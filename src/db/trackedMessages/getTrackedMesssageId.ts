@@ -1,14 +1,13 @@
-const trackedmessageSchema = require("../../Schemas/trackedmessage");
+import trackedmessageSchema from "../../Schemas/trackedmessage";
+import type { Snowflake } from "discord.js";
 
-async function getTrackedMessageId(name) {
-  let trackedMessage;
+export default async function getTrackedMessageId(name: string): Promise<Snowflake | ""> {
+  let trackedMessage: any;
   try {
     trackedMessage = await trackedmessageSchema.findOne({ name });
   } catch (e) {
     console.error(e);
   }
 
-  return trackedMessage ? trackedMessage.id : "";
+  return trackedMessage ? (trackedMessage.id as Snowflake) : "";
 }
-
-module.exports = getTrackedMessageId;

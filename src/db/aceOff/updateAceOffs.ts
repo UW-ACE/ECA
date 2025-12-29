@@ -1,7 +1,12 @@
-const aceOffSchema = require("../../Schemas/ace-offs");
+import aceOffSchema from "../../Schemas/ace-offs";
 
-async function updateAceOffs(message) {
-  let aceOffEntry;
+/**
+ * Update or create the ace-off message entry in the DB.
+ * @param message message content to save
+ * @returns true on success, false on failure
+ */
+export default async function updateAceOffs(message: string): Promise<boolean> {
+  let aceOffEntry: any;
 
   try {
     aceOffEntry = await aceOffSchema.findOne({});
@@ -27,5 +32,3 @@ async function updateAceOffs(message) {
   }
   return true;
 }
-
-module.exports = updateAceOffs;

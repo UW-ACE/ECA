@@ -3,5 +3,5 @@
     "ignore": [],
     "watch": ["src/", ".env"],
     "ext": "js, ts",
-    "exec": "npm run build && npm run start:dev"
+    "exec": "npm run build && npm run start"
 }
