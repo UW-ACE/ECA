@@ -4,7 +4,7 @@ import { sendMessageToServer, sendEmbedToServer } from "../helpers/message";
 import { CHANNEL_GENERAL } from "../helpers/channelConstants";
 import { EMOJI_CAT_LOVE } from "../helpers/emojiConstants";
 import "dotenv/config";
-import { makeAppreciateEmbed } from "../embeds/appreciate-embed";
+import { makeAppreciateEmbed } from "../helpers/embeds/appreciate-embed";
 
 export default {
   level: "public",

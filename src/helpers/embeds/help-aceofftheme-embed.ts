@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { CHANNEL_ACEOFF } from "../helpers/channelConstants";
+import { CHANNEL_ACEOFF } from "../channelConstants";
 
 export function makeHelpAceOffThemeEmbed() {
   const embed = new MessageEmbed();

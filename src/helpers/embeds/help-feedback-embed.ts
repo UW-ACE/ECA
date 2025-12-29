@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { CHANNEL_FEEDBACKBOOGIE } from "../helpers/channelConstants";
+import { CHANNEL_FEEDBACKBOOGIE } from "../channelConstants";
 
 export function makeHelpFeedbackEmbed() {
   const embed = new MessageEmbed();

@@ -1,10 +1,10 @@
 import { EcaInteraction, EcaSlashCommand } from "../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { makeHelpFeedbackEmbed } from "../embeds/help-feedback-embed";
-import { makeHelpBirthdayEmbed } from "../embeds/help-birthday-embed";
-import { makeHelpAppreciateEmbed } from "../embeds/help-appreciate-embed";
-import { makeHelpAceOffThemeEmbed } from "../embeds/help-aceofftheme-embed";
-import { makeHelpEmbed } from "../embeds/help-embed";
+import { makeHelpFeedbackEmbed } from "../helpers/embeds/help-feedback-embed";
+import { makeHelpBirthdayEmbed } from "../helpers/embeds/help-birthday-embed";
+import { makeHelpAppreciateEmbed } from "../helpers/embeds/help-appreciate-embed";
+import { makeHelpAceOffThemeEmbed } from "../helpers/embeds/help-aceofftheme-embed";
+import { makeHelpEmbed } from "../helpers/embeds/help-embed";
 import { sendEmbedToServer } from "../helpers/message";
 import "dotenv/config";
 

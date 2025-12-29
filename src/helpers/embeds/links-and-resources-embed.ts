@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { EMOJI_ACE } from "../helpers/emojiConstants";
+import { EMOJI_ACE } from "../emojiConstants";
 
 export function makeLinksAndResourcesEmbeds() {
   const discordFriendsEmbed = new MessageEmbed();

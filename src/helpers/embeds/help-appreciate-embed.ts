@@ -1,6 +1,6 @@
 import { MessageEmbed } from "discord.js";
-import { CHANNEL_GENERAL } from "../helpers/channelConstants";
-import { EMOJI_CAT_LOVE } from "../helpers/emojiConstants";
+import { CHANNEL_GENERAL } from "../channelConstants";
+import { EMOJI_CAT_LOVE } from "../emojiConstants";
 
 export function makeHelpAppreciateEmbed() {
   const embed = new MessageEmbed();

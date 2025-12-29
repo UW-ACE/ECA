@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { CHANNEL_GENERAL } from "../helpers/channelConstants";
+import { CHANNEL_GENERAL } from "../channelConstants";
 
 export function makeHelpBirthdayEmbed() {
   const embed = new MessageEmbed();

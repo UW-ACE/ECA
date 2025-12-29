@@ -1,5 +1,5 @@
 import { MessageEmbed, Snowflake } from "discord.js";
-import { EMOJI_CAT_LOVE } from "../helpers/emojiConstants";
+import { EMOJI_CAT_LOVE } from "../emojiConstants";
 
 export interface AppreciateEmbedOptions {
   appreciator?: Snowflake,
