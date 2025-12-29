@@ -1,29 +1,29 @@
 // ----------------------------------------------------IMPORTS----------------------------------------------------
-import fs from "fs";
-import { REST } from "@discordjs/rest";
-import { PermissionFlagsBits, Routes } from "discord-api-types/v9";
-import { Client, Intents, Collection } from "discord.js";
-import mongoose from "mongoose";
-import "dotenv/config";
+import fs from 'fs';
+import { REST } from '@discordjs/rest';
+import { PermissionFlagsBits, Routes } from 'discord-api-types/v9';
+import { Client, Intents, Collection } from 'discord.js';
+import mongoose from 'mongoose';
+import 'dotenv/config';
 
-import { EcaInteraction, EcaSlashCommand } from "./types";
+import { EcaInteraction, EcaSlashCommand } from './types';
 
-import AceOffThemeCommand from "./slash-commands/aceofftheme";
-import AppreciateCommand from "./slash-commands/appreciate";
-import FeedbackCommand from "./slash-commands/feedback";
-import HelpCommand from "./slash-commands/help";
-import IntroductionCommand from "./slash-commands/introduction";
-import MessageCommand from "./slash-commands/message";
-import SetBirthdayCommand from "./slash-commands/setBirthday";
-import StatusCommand from "./slash-commands/status";
-import StopYellingAtExecCommand from "./slash-commands/stopyellingatexec";
-import YellAtExecCommand from "./slash-commands/yellatexec";
+import AceOffThemeCommand from './slash-commands/aceofftheme';
+import AppreciateCommand from './slash-commands/appreciate';
+import FeedbackCommand from './slash-commands/feedback';
+import HelpCommand from './slash-commands/help';
+import IntroductionCommand from './slash-commands/introduction';
+import MessageCommand from './slash-commands/message';
+import SetBirthdayCommand from './slash-commands/setBirthday';
+import StatusCommand from './slash-commands/status';
+import StopYellingAtExecCommand from './slash-commands/stopyellingatexec';
+import YellAtExecCommand from './slash-commands/yellatexec';
 
-import DeleteCommandEvent from "./events/deleteCommand";
-import GetStatusEvent from "./events/getStatus";
-import RemindExecEvent from "./events/remindExec";
-import SendAceOffThemeEvent from "./events/sendAceOffTheme";
-import SendBirthdayEvent from "./events/sendBirthday";
+import DeleteCommandEvent from './events/deleteCommand';
+import GetStatusEvent from './events/getStatus';
+import RemindExecEvent from './events/remindExec';
+import SendAceOffThemeEvent from './events/sendAceOffTheme';
+import SendBirthdayEvent from './events/sendBirthday';
 
 // -----------------------------------------CLIENT SETUP----------------------------------------------
 
@@ -31,14 +31,14 @@ import SendBirthdayEvent from "./events/sendBirthday";
 const intents = new Intents(32767);
 const client = new Client({
   intents: intents,
-  partials: ["MESSAGE", "CHANNEL", "REACTION"],
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
 
 // -----------------------------------------DB SETUP----------------------------------------------
 
 // MongoDB setup
 (async () => {
-  await mongoose.connect(process.env.MONGO_URI || "", {
+  await mongoose.connect(process.env.MONGO_URI || '', {
     keepAlive: true,
   });
 })();
@@ -50,8 +50,8 @@ const EVENTS_LIST = [
   GetStatusEvent,
   RemindExecEvent,
   SendAceOffThemeEvent,
-  SendBirthdayEvent
-]
+  SendBirthdayEvent,
+];
 
 for (const event of EVENTS_LIST) {
   if (event.once) {
@@ -74,17 +74,19 @@ const SLASH_COMMANDS_LIST = [
   SetBirthdayCommand,
   StatusCommand,
   StopYellingAtExecCommand,
-  YellAtExecCommand
+  YellAtExecCommand,
 ];
 
 const slashCommands = new Collection<string, EcaSlashCommand>();
 for (const slashCommand of SLASH_COMMANDS_LIST) {
   // TODO: replace this check with something more sane. Honestly just enforcing proper TS types here would fix the issue
-  if (process.env.ENV === "DEV" || slashCommand.level === "mod") {
-    slashCommand.data = slashCommand.data.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+  if (process.env.ENV === 'DEV' || slashCommand.level === 'mod') {
+    slashCommand.data = slashCommand.data.setDefaultMemberPermissions(
+      PermissionFlagsBits.Administrator
+    );
   }
 
-  if (process.env.ENV === "DEV") {
+  if (process.env.ENV === 'DEV') {
     slashCommand.data = slashCommand.data.setName(`dev_${slashCommand.data.name}`);
   }
 
@@ -92,16 +94,18 @@ for (const slashCommand of SLASH_COMMANDS_LIST) {
 }
 
 // Register slash commands on ready
-client.once("ready", async () => {
+client.once('ready', async () => {
   const clientId = client.user.id;
   const guildId = process.env.GUILD_ID;
 
   // Registering slash commands in the client
   const rest = new REST({
-    version: "9",
+    version: '9',
   }).setToken(process.env.BOT_TOKEN);
 
-  const slashCommandPostData = Array.from(slashCommands.values()).map(command => command.data.toJSON());
+  const slashCommandPostData = Array.from(slashCommands.values()).map((command) =>
+    command.data.toJSON()
+  );
 
   try {
     if (!guildId) {
@@ -119,23 +123,30 @@ client.once("ready", async () => {
       await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
         body: slashCommandPostData,
       });
-      console.log(`Successfully registered ${slashCommands.size} application commands for development guild`);
+      console.log(
+        `Successfully registered ${slashCommands.size} application commands for development guild`
+      );
     }
   } catch (error) {
-    if (error) console.error(`[ERROR] Error while registering commands:\n${JSON.stringify(error, null, 2)}`);
+    if (error)
+      console.error(`[ERROR] Error while registering commands:\n${JSON.stringify(error, null, 2)}`);
   }
 
-  console.log(`To invite this bot to your server, use the link: https://discord.com/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot+applications.commands`);
+  console.log(
+    `To invite this bot to your server, use the link: https://discord.com/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot+applications.commands`
+  );
 
-  if (process.env.ENV === "DEV") {
-    console.log("[WARN] DEV Mode is active, commands will be prefixed with '_dev' and will be admin/exec only!");
+  if (process.env.ENV === 'DEV') {
+    console.log(
+      "[WARN] DEV Mode is active, commands will be prefixed with '_dev' and will be admin/exec only!"
+    );
   }
 
   console.log(`Bot is online! The start time is: ${new Date().toString()}`);
 });
 
 // Handle slash commands
-client.on("interactionCreate", async (interaction: EcaInteraction) => {
+client.on('interactionCreate', async (interaction: EcaInteraction) => {
   if (!interaction.isCommand()) return;
   const command = slashCommands.get(interaction.commandName);
   if (!command) return;
@@ -144,7 +155,7 @@ client.on("interactionCreate", async (interaction: EcaInteraction) => {
   } catch (error) {
     if (error) console.error(error);
     await interaction.reply({
-      content: "There was an error while executing this command!",
+      content: 'There was an error while executing this command!',
       ephemeral: true,
     });
   }
@@ -153,12 +164,14 @@ client.on("interactionCreate", async (interaction: EcaInteraction) => {
 // -----------------------------------------INTRODUCTION SETUP----------------------------------------------
 
 // temporary introduction stuff
-client.on("guildMemberAdd", async (member) => {
+client.on('guildMemberAdd', async (member) => {
   if (!member.user.bot)
-    await member.user.send("Hey, welcome to ACE! To get started, you can type /introduction or check out the channel #🚨｜start-here!")
-})
+    await member.user.send(
+      'Hey, welcome to ACE! To get started, you can type /introduction or check out the channel #🚨｜start-here!'
+    );
+});
 
-client.on("guildMemberAdd", (member) => {
+client.on('guildMemberAdd', (member) => {
   // TODO: implement this with correct new member information (e.g. new members guide)
   // perhaps use embeds to make it look nicer
   return;

@@ -1,5 +1,5 @@
-import birthdaySchema from "../Schemas/birthday";
-import type { Snowflake } from "discord.js";
+import birthdaySchema from '../Schemas/birthday';
+import type { Snowflake } from 'discord.js';
 
 /**
  * Add a birthday entry for a user.
@@ -16,7 +16,7 @@ export async function addBirthday(userid: Snowflake, month: number, day: number)
     }).save();
     console.log(`[LOG] Added birthday for user ${userid} on ${month}/${day}`);
   } catch (e) {
-    console.error("[ERROR] Failed to add birthday to MongoDB");
+    console.error('[ERROR] Failed to add birthday to MongoDB');
     console.error(e);
   }
 }

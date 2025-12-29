@@ -1,14 +1,14 @@
-import { EcaEvent } from "../types";
-import statusSchema from "../db/Schemas/status";
-import "dotenv/config";
-import { Client } from "discord.js";
+import { EcaEvent } from '../types';
+import statusSchema from '../db/Schemas/status';
+import 'dotenv/config';
+import { Client } from 'discord.js';
 
 export default {
-  type: "ready",
+  type: 'ready',
   once: true,
   execute: async (client: Client<true>) => {
-    if (process.env.ENV === "DEV") {
-      console.log("[EVENT WARNING] getStatus turned off in dev");
+    if (process.env.ENV === 'DEV') {
+      console.log('[EVENT WARNING] getStatus turned off in dev');
       return;
     }
 
@@ -16,13 +16,13 @@ export default {
 
     try {
       status = await statusSchema.find({});
-      console.log("Status: ", status[0]);
+      console.log('Status: ', status[0]);
     } catch (e) {
       console.error(e);
     }
 
-    const name = (status[0] && status[0].name) || "feedback!";
-    const type = (status[0] && status[0].type) || "LISTENING";
+    const name = (status[0] && status[0].name) || 'feedback!';
+    const type = (status[0] && status[0].type) || 'LISTENING';
 
     client.user.setPresence({
       activities: [
@@ -31,7 +31,7 @@ export default {
           type: type,
         },
       ],
-      status: "online",
+      status: 'online',
     });
   },
 } as EcaEvent;

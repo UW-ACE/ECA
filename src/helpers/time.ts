@@ -1,13 +1,13 @@
 export function convertTZ(date: Date | string, tzString: string): Date {
   return new Date(
-    (typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
+    (typeof date === 'string' ? new Date(date) : date).toLocaleString('en-US', {
       timeZone: tzString,
     })
   );
 }
 
 export function getTime(): Date {
-  return convertTZ(new Date(), "Canada/Eastern");
+  return convertTZ(new Date(), 'Canada/Eastern');
 }
 
 export interface CurrentDate {

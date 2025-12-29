@@ -63,4 +63,3 @@
 //       throw new Error(`No embed found for type: ${type}`);
 //   }
 // }
-

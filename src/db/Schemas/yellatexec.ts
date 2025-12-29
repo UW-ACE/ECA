@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
   exec: {
@@ -19,4 +19,4 @@ const schema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("yellatexec", schema);
+export default mongoose.model('yellatexec', schema);

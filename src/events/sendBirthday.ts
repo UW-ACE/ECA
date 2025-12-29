@@ -1,13 +1,13 @@
-import "dotenv/config";
-import { getTime, getCurrentDate } from "../helpers/time";
-import { sendMessageToServer } from "../helpers/message";
-import { CHANNEL_GENERAL } from "../helpers/channelConstants";
-import { getBirthdaysByMonthDay } from "../db/birthdays/get";
-import { EcaEvent } from "../types";
-import { Client } from "discord.js";
+import 'dotenv/config';
+import { getTime, getCurrentDate } from '../helpers/time';
+import { sendMessageToServer } from '../helpers/message';
+import { CHANNEL_GENERAL } from '../helpers/channelConstants';
+import { getBirthdaysByMonthDay } from '../db/birthdays/get';
+import { EcaEvent } from '../types';
+import { Client } from 'discord.js';
 
 const dayInMs = 1000 * 60 * 60 * 24;
-const estOffset = process.env.ENV === "DEV" ? 1000 * 60 * 60 * 5 : 0;
+const estOffset = process.env.ENV === 'DEV' ? 1000 * 60 * 60 * 5 : 0;
 
 async function sendBirthdayMessage(client: any, channel: string) {
   const { currMonth, currDay } = getCurrentDate();
@@ -19,7 +19,12 @@ async function sendBirthdayMessage(client: any, channel: string) {
     const user = client.users.cache.get(userid);
     console.log(`Happy birthday to ${user} on month: ${month}, day: ${day}`);
     try {
-      sendMessageToServer(client, channel, `🥳 🎂 Happy ${user} day!!! 🎂 🥳`, process.env.GUILD_ID);
+      sendMessageToServer(
+        client,
+        channel,
+        `🥳 🎂 Happy ${user} day!!! 🎂 🥳`,
+        process.env.GUILD_ID
+      );
     } catch (e) {
       console.error(e);
     }
@@ -27,11 +32,11 @@ async function sendBirthdayMessage(client: any, channel: string) {
 }
 
 export default {
-  type: "ready",
+  type: 'ready',
   once: true,
   async execute(client: Client<true>) {
-    if (process.env.ENV === "DEV") {
-      console.log("[EVENT WARNING] sendBirthday turned off in dev");
+    if (process.env.ENV === 'DEV') {
+      console.log('[EVENT WARNING] sendBirthday turned off in dev');
       return;
     }
 
@@ -40,23 +45,26 @@ export default {
     const msToWait = dayInMs - msPassed;
     console.log(`local date: ${date.toLocaleDateString()}`);
 
-    const currentTime = [Math.trunc(msPassed / 1000 / 3600), Math.trunc((msPassed / 1000 / 60) % 60)];
+    const currentTime = [
+      Math.trunc(msPassed / 1000 / 3600),
+      Math.trunc((msPassed / 1000 / 60) % 60),
+    ];
     const waitingTime = [
       Math.trunc((dayInMs - msPassed) / 1000 / 3600),
       Math.trunc(((dayInMs - msPassed) / 1000 / 60) % 60),
     ];
-    console.log("currentTime", currentTime[0], ":", currentTime[1]);
-    console.log("waitingTime", waitingTime[0], ":", waitingTime[1]);
-    console.log("midnight", currentTime[0] + waitingTime[0], ":", currentTime[1] + waitingTime[1]);
+    console.log('currentTime', currentTime[0], ':', currentTime[1]);
+    console.log('waitingTime', waitingTime[0], ':', waitingTime[1]);
+    console.log('midnight', currentTime[0] + waitingTime[0], ':', currentTime[1] + waitingTime[1]);
 
     // Wait until midnight the next night
     setTimeout(async () => {
-      console.log("midnight! (set timeout)");
+      console.log('midnight! (set timeout)');
       // check if it's anyone's birthday
       await sendBirthdayMessage(client, CHANNEL_GENERAL);
       // wait a day, check again, repeat every day
       setInterval(async () => {
-        console.log("(set interval)");
+        console.log('(set interval)');
         await sendBirthdayMessage(client, CHANNEL_GENERAL);
       }, dayInMs);
     }, msToWait);

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
   name: {
@@ -11,4 +11,4 @@ const schema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("trackedmessage", schema);
+export default mongoose.model('trackedmessage', schema);

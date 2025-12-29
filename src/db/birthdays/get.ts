@@ -1,6 +1,6 @@
-import birthdaySchema from "../Schemas/birthday";
-import type { Snowflake } from "discord.js";
-import type { Document } from "mongoose";
+import birthdaySchema from '../Schemas/birthday';
+import type { Snowflake } from 'discord.js';
+import type { Document } from 'mongoose';
 
 /**
  * Type hint for ECA DB Birthday schema objects
@@ -15,9 +15,9 @@ export async function getAllBirthdays(): Promise<EcaUserBirthday[]> {
   let birthdays: EcaUserBirthday[] = [] as EcaUserBirthday[];
   try {
     birthdays = await birthdaySchema.find({});
-    console.log("[LOG] Birthdays (all):", birthdays);
+    console.log('[LOG] Birthdays (all):', birthdays);
   } catch (e) {
-    console.error("[ERROR] Failed to grab all birthdays from MongoDB");
+    console.error('[ERROR] Failed to grab all birthdays from MongoDB');
     console.error(e);
   }
   return birthdays;
@@ -37,7 +37,10 @@ export async function getBirthdaysByMonth(month: number): Promise<EcaUserBirthda
   return birthdays;
 }
 
-export async function getBirthdaysByMonthDay(month: number, day: number): Promise<EcaUserBirthday[]> {
+export async function getBirthdaysByMonthDay(
+  month: number,
+  day: number
+): Promise<EcaUserBirthday[]> {
   let birthdays: EcaUserBirthday[] = [] as EcaUserBirthday[];
   try {
     birthdays = await birthdaySchema.find({

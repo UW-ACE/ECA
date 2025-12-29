@@ -1,7 +1,11 @@
-import birthdaySchema from "../Schemas/birthday";
-import type { Snowflake } from "discord.js";
+import birthdaySchema from '../Schemas/birthday';
+import type { Snowflake } from 'discord.js';
 
-export async function updateBirthdayByID(userid: Snowflake, month: number, day: number): Promise<void> {
+export async function updateBirthdayByID(
+  userid: Snowflake,
+  month: number,
+  day: number
+): Promise<void> {
   try {
     await birthdaySchema.updateOne(
       { userid },

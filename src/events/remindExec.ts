@@ -1,15 +1,15 @@
-import { EcaEvent } from "../types";
-import { sendMessageToServer, dmUser } from "../helpers/message";
-import yellAtExecSchema from "../db/Schemas/yellatexec";
-import "dotenv/config";
-import { Client } from "discord.js";
+import { EcaEvent } from '../types';
+import { sendMessageToServer, dmUser } from '../helpers/message';
+import yellAtExecSchema from '../db/Schemas/yellatexec';
+import 'dotenv/config';
+import { Client } from 'discord.js';
 
 export default {
-  type: "ready",
+  type: 'ready',
   once: true,
   execute: async (client: Client<true>) => {
-    if (process.env.ENV === "DEV") {
-      console.log("[EVENT WARNING] remindExec turned off in dev");
+    if (process.env.ENV === 'DEV') {
+      console.log('[EVENT WARNING] remindExec turned off in dev');
       return;
     }
     let tasks;
@@ -25,7 +25,7 @@ export default {
         for (let task of tasks) {
           const exec = task.exec || process.env.HAODA;
           const message = task.message;
-          const channel = task.channel || "general";
+          const channel = task.channel || 'general';
           const post = `Hey <@${exec}>, ${message}`;
           dmUser(client, exec, post);
           sendMessageToServer(client, channel, post, process.env.PROD_ID);

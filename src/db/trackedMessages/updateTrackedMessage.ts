@@ -1,7 +1,10 @@
-import trackedmessageSchema from "../Schemas/trackedmessage";
-import type { Snowflake } from "discord.js";
+import trackedmessageSchema from '../Schemas/trackedmessage';
+import type { Snowflake } from 'discord.js';
 
-export default async function updateTrackedMessage(name: string, newid: Snowflake): Promise<boolean> {
+export default async function updateTrackedMessage(
+  name: string,
+  newid: Snowflake
+): Promise<boolean> {
   let trackedmessageEntry: any;
 
   try {

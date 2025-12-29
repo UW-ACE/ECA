@@ -1,9 +1,9 @@
-import { Client } from "discord.js";
-import { EcaEvent } from "../types";
-import "dotenv/config";
+import { Client } from 'discord.js';
+import { EcaEvent } from '../types';
+import 'dotenv/config';
 
 export default {
-  type: "ready",
+  type: 'ready',
   once: true,
   execute: async (client: Client<true>) => {
     // get all commands from this guild

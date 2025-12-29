@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
   message: {
@@ -7,4 +7,4 @@ const schema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("ace-offs", schema);
+export default mongoose.model('ace-offs', schema);

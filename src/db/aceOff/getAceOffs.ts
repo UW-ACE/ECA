@@ -1,4 +1,4 @@
-import aceOffSchema from "../Schemas/ace-offs";
+import aceOffSchema from '../Schemas/ace-offs';
 
 /**
  * Returns the current ace-off message (empty string if not set)
@@ -11,5 +11,5 @@ export default async function getAceOffs(): Promise<string> {
     console.error(e);
   }
 
-  return aceOffEntry ? aceOffEntry.message : "";
+  return aceOffEntry ? aceOffEntry.message : '';
 }
