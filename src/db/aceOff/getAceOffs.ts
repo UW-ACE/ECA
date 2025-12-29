@@ -1,4 +1,4 @@
-import aceOffSchema from "../../Schemas/ace-offs";
+import aceOffSchema from "../Schemas/ace-offs";
 
 /**
  * Returns the current ace-off message (empty string if not set)

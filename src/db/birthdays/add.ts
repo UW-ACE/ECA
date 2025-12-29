@@ -1,4 +1,4 @@
-import birthdaySchema from "../../Schemas/birthday";
+import birthdaySchema from "../Schemas/birthday";
 import type { Snowflake } from "discord.js";
 
 /**

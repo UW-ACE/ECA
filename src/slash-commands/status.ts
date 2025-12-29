@@ -1,6 +1,6 @@
 import { asString, EcaInteraction, EcaSlashCommand } from "../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import statusSchema from "../Schemas/status";
+import statusSchema from "../db/Schemas/status";
 
 export default {
   level: "mod",

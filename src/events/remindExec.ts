@@ -1,6 +1,6 @@
 import { EcaEvent } from "../types";
 import { sendMessageToServer, dmUser } from "../helpers/message";
-import yellAtExecSchema from "../Schemas/yellatexec";
+import yellAtExecSchema from "../db/Schemas/yellatexec";
 import "dotenv/config";
 import { Client } from "discord.js";
 

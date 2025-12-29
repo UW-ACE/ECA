@@ -1,5 +1,5 @@
 import { EcaEvent } from "../types";
-import statusSchema from "../Schemas/status";
+import statusSchema from "../db/Schemas/status";
 import "dotenv/config";
 import { Client } from "discord.js";
 

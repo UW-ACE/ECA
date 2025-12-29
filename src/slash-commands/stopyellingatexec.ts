@@ -1,7 +1,7 @@
 import { EcaInteraction, EcaSlashCommand } from "../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { dmUser, sendMessageToServer } from "../helpers/message";
-import yellAtExecSchema from "../Schemas/yellatexec";
+import yellAtExecSchema from "../db/Schemas/yellatexec";
 import "dotenv/config";
 
 export default {

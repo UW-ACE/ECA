@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const birthday = require("./Schemas/birthday");
+const birthday = require("./db/Schemas/birthday");
 require("dotenv").config();
 
 const connectToDb = async () => {

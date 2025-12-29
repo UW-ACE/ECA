@@ -1,4 +1,4 @@
-import aceOffSchema from "../../Schemas/ace-offs";
+import aceOffSchema from "../Schemas/ace-offs";
 
 /**
  * Update or create the ace-off message entry in the DB.
