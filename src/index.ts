@@ -19,7 +19,6 @@ import StatusCommand from './slash-commands/status';
 import StopYellingAtExecCommand from './slash-commands/stopyellingatexec';
 import YellAtExecCommand from './slash-commands/yellatexec';
 
-import DeleteCommandEvent from './events/deleteCommand';
 import GetStatusEvent from './events/getStatus';
 import RemindExecEvent from './events/remindExec';
 import SendAceOffThemeEvent from './events/sendAceOffTheme';
@@ -45,13 +44,7 @@ const client = new Client({
 
 // -----------------------------------------EVENTS SETUP----------------------------------------------
 
-const EVENTS_LIST = [
-  DeleteCommandEvent,
-  GetStatusEvent,
-  RemindExecEvent,
-  SendAceOffThemeEvent,
-  SendBirthdayEvent,
-];
+const EVENTS_LIST = [GetStatusEvent, RemindExecEvent, SendAceOffThemeEvent, SendBirthdayEvent];
 
 for (const event of EVENTS_LIST) {
   if (event.once) {
