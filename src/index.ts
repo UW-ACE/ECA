@@ -12,15 +12,11 @@ import AceOffThemeCommand from './slash-commands/aceofftheme';
 import AppreciateCommand from './slash-commands/appreciate';
 import FeedbackCommand from './slash-commands/feedback';
 import HelpCommand from './slash-commands/help';
-import IntroductionCommand from './slash-commands/introduction';
 import MessageCommand from './slash-commands/message';
 import SetBirthdayCommand from './slash-commands/setBirthday';
 import StatusCommand from './slash-commands/status';
-import StopYellingAtExecCommand from './slash-commands/stopyellingatexec';
-import YellAtExecCommand from './slash-commands/yellatexec';
 
 import GetStatusEvent from './events/getStatus';
-import RemindExecEvent from './events/remindExec';
 import SendAceOffThemeEvent from './events/sendAceOffTheme';
 import SendBirthdayEvent from './events/sendBirthday';
 
@@ -44,7 +40,7 @@ const client = new Client({
 
 // -----------------------------------------EVENTS SETUP----------------------------------------------
 
-const EVENTS_LIST = [GetStatusEvent, RemindExecEvent, SendAceOffThemeEvent, SendBirthdayEvent];
+const EVENTS_LIST = [GetStatusEvent, SendAceOffThemeEvent, SendBirthdayEvent];
 
 for (const event of EVENTS_LIST) {
   if (event.once) {
@@ -62,12 +58,9 @@ const SLASH_COMMANDS_LIST = [
   AppreciateCommand,
   FeedbackCommand,
   HelpCommand,
-  IntroductionCommand,
   MessageCommand,
   SetBirthdayCommand,
   StatusCommand,
-  StopYellingAtExecCommand,
-  YellAtExecCommand,
 ];
 
 const slashCommands = new Collection<string, EcaSlashCommand>();
@@ -158,20 +151,12 @@ client.on('interactionCreate', async (interaction: EcaInteraction) => {
 
 // temporary introduction stuff
 client.on('guildMemberAdd', async (member) => {
-  if (!member.user.bot)
+  if (!member.user.bot) {
     await member.user.send(
-      'Hey, welcome to ACE! To get started, you can type /introduction or check out the channel #🚨｜start-here!'
+      'Hey, welcome to ACE! To get started, please check out the channel #🚨｜start-here!'
     );
-});
-
-client.on('guildMemberAdd', (member) => {
-  // TODO: implement this with correct new member information (e.g. new members guide)
-  // perhaps use embeds to make it look nicer
-  return;
-  member.send(
-    `Hello, ${member.user.username}! Welcome to the ECA test server! Find resources here: [] and here: []`
-  );
-  console.log(`${member.user.username} has joined`);
+    console.log(`${member.user.username} has joined`);
+  }
 });
 
 // Login to Discord with your client's token
