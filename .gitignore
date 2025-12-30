@@ -1,3 +1,6 @@
+# DB Container Data
+eca_data/
+
 # Logs
 logs
 *.log

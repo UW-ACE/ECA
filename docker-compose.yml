@@ -1,4 +1,14 @@
 version: "3.8"
 services:
-  eca-test:
+  eca:
     build: .
+    environment:
+      MONGO_URI: mongodb://mongo:27017/ECA
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    command: ["mongod", "--bind_ip_all"]
+    volumes:
+      - ./eca_data/mongo_db:/data/db
+      - ./eca_data/mongo_share:/share
+
