@@ -36,7 +36,7 @@ The `watch` command automatically runs `format`, `build`, and `start` whenever i
 ### Production Environment Setup
 
 1. Create a `.env` file in the root directory, based off `.env.example.prod`
-2. Run `docker compose up -d` to start both the development and production containers
+2. Run `docker compose up -d --build` to start both the development and production containers
     * The Dockerfile is configured to automatically copy the `.env` to the bot container to use when the container is built
 
 When moving the bot to a new production environment, you may also need to migrate the MongoDB database information. This can be done using MongoDB tools.
