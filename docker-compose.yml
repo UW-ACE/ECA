@@ -10,5 +10,6 @@ services:
     command: ["mongod", "--bind_ip_all"]
     volumes:
       - ./eca_data/mongo_db:/data/db
-      - ./eca_data/mongo_share:/share
+    ports:
+      - 27017:27017
 
