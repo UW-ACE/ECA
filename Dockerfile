@@ -3,8 +3,10 @@ FROM node:16
 # Basic node.js setup
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY . .
+COPY package.json .
+COPY package-lock.json .
 RUN npm install
+COPY . .
 RUN npm run build
 
 # ECA specific stuff
